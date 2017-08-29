@@ -1,20 +1,25 @@
 ####################################################################################################
 #                                     Make file Server Client appl                                 #
 ####################################################################################################
-CFLAGS:=-c -Wall 
 SOURCES:=main.cpp
-LDFLAGS:=
 OBJECTS:=$(SOURCES:.cpp=.o)
-CC:=g++
-EXECUTABLE:=appl.app
 
-all: clean $(SOURCES) $(EXECUTABLE) 
+TOPDIR:= $(shell pwd)/../
+include ../Makefile.mk
+
+all: clean $(SOURCES) $(EXECUTABLE) install
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@ 
+	$(CXX) $(LDFLAGS) $(OBJ)/$(OBJECTS) -o $(BIN)/$@ 
 
 .cpp.o:
-	$(CC) $(CFLAGS) $< -o $@
+	$(CXX) $(CFLAGS) $< -o $(OBJ)/$@
 
 clean:
-	rm -rf $(EXECUTABLE) $(OBJECTS)
+	rm -rf $(BIN)/$(EXECUTABLE) $(OBJ)/$(OBJECTS) $(BIN) $(OBJ)
+	mkdir -p $(BIN)
+	mkdir -p $(OBJ)
+
+
+install:
+	cp -a $(BIN)/$(EXECUTABLE) $(INSTALLBIN)
