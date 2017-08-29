@@ -16,6 +16,9 @@
  * =====================================================================================
  */
 
+#include <string>
+#include <vector>
+
 /*
  * =====================================================================================
  *        Class:  CWsocket
@@ -26,9 +29,15 @@ class CWsocket
 {
 	public:
 		/* ====================  LIFECYCLE     ======================================= */
-		CWsocket ();                             /* constructor */
+		CWsocket () = delete;                             /* constructor */
+		CWsocket (const std::string &, int port);
 		~CWsocket (); 
 
+		int Connect(const std::string&, int port);
+		int Listen();
+		CWsocket Accept();
+		int Send(const std::vector<unsigned char>&);
+		const std::vector<unsigned char> Receive();
 		/* ====================  ACCESSORS     ======================================= */
 
 		/* ====================  MUTATORS      ======================================= */

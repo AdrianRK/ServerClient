@@ -1,4 +1,4 @@
-CFLAGS:=-c -Wall
+CFLAGS:=-c -Wall -std=c++11
 C:=g++
 EXECUTABLE:=appl.app
 LDFLAGS:= 
