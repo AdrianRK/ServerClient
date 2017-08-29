@@ -1,16 +1,17 @@
 ####################################################################################################
 #                                     Make file Server Client appl                                 #
 ####################################################################################################
-SOURCES:=main.cpp
+SOURCES:=	main.cpp\
+	CWSocket.cpp
 OBJECTS:=$(SOURCES:.cpp=.o)
 
 TOPDIR:= $(shell pwd)/..
 include ../Makefile.mk
 
-all: clean $(SOURCES) $(EXECUTABLE) 
+all: clean $(EXECUTABLE) 
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CXX) $(LDFLAGS) $(OBJ)/$(OBJECTS) -o $(BIN)/$@ 
+	$(CXX) $(LDFLAGS) $(patsubst  %,$(OBJ)/%,$(OBJECTS)) -o $(BIN)/$@ 
 
 .cpp.o:
 	$(CXX) $(CFLAGS) $< -o $(OBJ)/$@
