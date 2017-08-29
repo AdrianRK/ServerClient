@@ -4,10 +4,10 @@
 SOURCES:=main.cpp
 OBJECTS:=$(SOURCES:.cpp=.o)
 
-TOPDIR:= $(shell pwd)/../
+TOPDIR:= $(shell pwd)/..
 include ../Makefile.mk
 
-all: clean $(SOURCES) $(EXECUTABLE) install
+all: clean $(SOURCES) $(EXECUTABLE) 
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CXX) $(LDFLAGS) $(OBJ)/$(OBJECTS) -o $(BIN)/$@ 
@@ -16,10 +16,10 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CXX) $(CFLAGS) $< -o $(OBJ)/$@
 
 clean:
-	rm -rf $(BIN)/$(EXECUTABLE) $(OBJ)/$(OBJECTS) $(BIN) $(OBJ)
+	rm -rf $(BIN)/$(EXECUTABLE) $(OBJ)/$(OBJECTS) $(BIN) $(OBJ) $(OBJECTS)
 	mkdir -p $(BIN)
 	mkdir -p $(OBJ)
 
 
-install:
-	cp -a $(BIN)/$(EXECUTABLE) $(INSTALLBIN)
+install: all
+	cp -a $(BIN)/$(EXECUTABLE) $(INSTALLBIN)/

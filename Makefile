@@ -3,7 +3,7 @@
 ####################################################################################################
 SUBDIRS:= src
 
-TOPDIR:= $(shell pwd)/../
+TOPDIR:= $(shell pwd)/
 include Makefile.mk
 
 all: clean
@@ -11,8 +11,16 @@ all: clean
 		(cd $$dir; make all)\
 	done  
 
+install: all
+	for dir in $(SUBDIRS); do \
+		(cd $$dir; make install)\
+	done  
+
 
 clean:
+	for dir in $(SUBDIRS); do \
+		(cd $$dir; make clean)\
+	done  
 	rm -rf $(INSTALLBIN) $(INSTALLLIB)
 	mkdir -p $(INSTALLBIN) 
 	mkdir -p $(INSTALLLIB)
