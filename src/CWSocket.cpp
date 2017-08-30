@@ -40,17 +40,37 @@ CWsocket::CWsocket (const std::string & ip, int port): mSocket()
 		std::cerr<< "Cannor create socket!\n";
 		exit(1);
 	}
-	struct sockaddr_in addr; 
-	addr.sin_family = AF_INET6;
-	addr.sin_addr.s_addr = inet_addr(ip.c_str()); 
-	addr.sin_port = htons(port);
-	ret = bind(mSocket,reinterpret_cast<sockaddr*>(&addr),sizeof(addr));
+	Bind(ip, port);
+}  /* -----  end of method CWsocket::CWsocket  (constructor)  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  CWsocket
+ *      Method:  CWsocket
+ * Description:  constructor
+ *--------------------------------------------------------------------------------------
+ */
+CWsocket::CWsocket (): mSocket()
+{
+	int ret = socket(AF_INET6,SOCK_STREAM | SOCK_CLOEXEC,0);
 	if	(-1 == ret)
 	{
-		std::cerr<< "Cannor create socket!\n";
+		std::cerr<< "Cannot create socket!\n";
 		exit(1);
 	}
 }  /* -----  end of method CWsocket::CWsocket  (constructor)  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  CWsocket
+ *      Method:  CWsocket
+ * Description:  constructor
+ *--------------------------------------------------------------------------------------
+ */
+CWsocket::CWsocket (int sockif): mSocket(sockif)
+{
+}  /* -----  end of method CWsocket::CWsocket  (constructor)  ----- */
+
 
 /*
  *--------------------------------------------------------------------------------------
@@ -70,4 +90,19 @@ CWsocket::Accept ()
 {
 	return *this;
 }		/* -----  end of method CWsocket::Accept  ----- */
+
+
+int CWSocket::Bind(const std::string&, int port)
+{
+	struct sockaddr_in addr; 
+	addr.sin_family = AF_INET6;
+	addr.sin_addr.s_addr = inet_addr(ip.c_str()); 
+	addr.sin_port = htons(port);
+	ret = bind(mSocket,reinterpret_cast<sockaddr*>(&addr),sizeof(addr));
+	if	(-1 == ret)
+	{
+		std::cerr<< "Cannor create socket!\n";
+		exit(1);
+	}
+}
 

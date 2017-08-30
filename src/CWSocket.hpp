@@ -29,10 +29,12 @@ class CWsocket
 {
 	public:
 		/* ====================  LIFECYCLE     ======================================= */
-		CWsocket () = delete;                             /* constructor */
+		CWsocket ();                             /* constructor */
 		CWsocket (const std::string &, int port);
+		CWsocket (int sockif); 
 		~CWsocket (); 
 
+		int Bind(const std::string&, int port);
 		int Connect(const std::string&, int port);
 		int Listen();
 		CWsocket Accept();
